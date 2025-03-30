@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Отчёт о выручке{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Отчёт о выручке</h2>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-success">
+            <h4 class="alert-heading">Общая выручка: {{ total_revenue }} ₽</h4>
+            <p>На основе {{ paid_orders|length }} оплаченных заказов</p>
+        </div>
+
+        <h4 class="mt-4">Оплаченные заказы:</h4>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Стол №</th>
+                        <th>Сумма</th>
+                        <th>Дата оплаты</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in paid_orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.table_number }}</td>
+                        <td>{{ order.total_price }} ₽</td>
+                        <td>{{ order.updated_at|date:"d.m.Y H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">Нет оплаченных заказов</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
