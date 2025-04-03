@@ -35,16 +35,12 @@ class Order(models.Model):
     updated_at: datetime = models.DateTimeField(auto_now=True)
 
     def calculate_total(self):
-        if not self.pk:
-            return 0
-        return sum(item.price for item in self.order_items.all())
+        return sum(item.price for item in self.order_items.all()) if self.pk else 0
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            return super().save(*args, **kwargs)
-        super().save(*args, **kwargs)
-        self.total_price = self.calculate_total()
-        super().save(*args, **kwargs)
+        if self.pk:
+            self.total_price = self.calculate_total()
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Order #{self.id} - Table {self.table_number}"
