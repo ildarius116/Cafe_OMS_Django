@@ -3,8 +3,8 @@ from rest_framework.permissions import BasePermission
 from rest_framework.serializers import ModelSerializer
 from django.db.models.query import QuerySet
 from typing import List
-from .models import Order, MenuItem
-from .serializers import MenuItemSerializer, OrderCreateSerializer, OrderListSerializer
+from app.models import Order, MenuItem
+from app.serializers import MenuItemSerializer, OrderCreateSerializer, OrderListSerializer
 
 
 class MenuItemViewSet(viewsets.ModelViewSet):
